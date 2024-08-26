@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  
+
   return (
     <>
       <Hero />
@@ -31,21 +31,22 @@ const Home = () => {
       <div className="bg-white">
         <div className="w-full flex justify-center">
           <div className="mx-auto max-w-2xl relative flex justify-between w-full">
-          <Link to="/new-creator">
-  <Button className="bg-gray-100 text-gray-900 text-xl font-bold border-[3px] border-gray-900 px-10 py-5 rounded-lg shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-200">
-    Add A Creator
-  </Button>
-</Link>
-<Link to="/user/all">
-<Button className="bg-gray-100 text-gray-900 text-xl font-bold border-[3px] border-gray-900 px-10 py-5 rounded-lg shadow-inner shadow-white/10  focus:outline-none data-[hover]:bg-gray-200">
-            View All Creators
-            </Button>
-</Link>
-
+            <Link to="/new-creator">
+              <Button className="bg-gray-100 text-gray-900 text-xl font-bold border-[3px] border-gray-900 px-10 py-5 rounded-lg shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-200">
+                Add A Creator
+              </Button>
+            </Link>
+            <Link to="/user/all">
+              <Button className="bg-gray-100 text-gray-900 text-xl font-bold border-[3px] border-gray-900 px-10 py-5 rounded-lg shadow-inner shadow-white/10  focus:outline-none data-[hover]:bg-gray-200">
+                View All Creators
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="relative">
-          <h2 className="text-7xl font-extrabold pt-44 text-center text-gray-100 text-pop-stroke">Top 5 Creators</h2>
+          <h2 className="text-7xl font-extrabold pt-44 text-center text-gray-100 text-pop-stroke">
+            Top 5 Creators
+          </h2>
         </div>
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl xl:max-w-full xl:px-10 lg:px-8">
           <CardGroup cards={testData.cards} />
