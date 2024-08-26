@@ -11,7 +11,7 @@ export interface CardGroupInterface {
 
 const CardGroup = ( { cards } : CardGroupInterface) => {
   return (
-    <section className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+    <section className="mt-6 grid grid-cols-1 gap-x-6 gap-y-28 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-5">
       {cards.map( (card, index) => (
        <Card
        key={index}

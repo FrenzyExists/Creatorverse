@@ -41,25 +41,23 @@ const Card = ({ creator, id }: CardInformation) => {
     .slice(0, 3);
 
   return (
-    <article className="group relative">
-      <a key={id} href={creator.url}>
-        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+    <article className="group relative rounded-3xl border-[4px] border-gray-900">
+        <a key={id} href={creator.url} className="w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-96">
           <img
             src={creator.imageURL}
-            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+            className="h-full w-full object-cover object-center lg:h-full lg:w-full p-1 rounded-3xl"
           />
-        </div>
+        </a>
         <div className="mt-4 flex justify-between items-center">
-          <h3 className="text-sm text-gray-700">{creator.name}</h3>
+          <h3 className="text-lg text-gray-900 font-extrabold">{creator.name}</h3>
           <div className="flex">
             {socialMediaList.map((sm) => (
               <a key={sm.type} href={sm.url || "#"} className="w-6 mx-2 flex">
-                <img src={socialMediaIcons[sm.type]} alt={sm.type}/>
+                <img src={socialMediaIcons[sm.type]} alt={sm.type} />
               </a>
             ))}
           </div>
         </div>
-      </a>
     </article>
   );
 };

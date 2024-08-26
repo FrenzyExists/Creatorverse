@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 type Creator = {
     name: String,
     url: string,
@@ -13,4 +15,10 @@ type SocialMedia = {
     twitch: string|undefined,
     twitter: string|undefined
 }
+export interface Modal {
+    isOpen: boolean,
+    onClose: () => void,
+    propeties: {}|undefined,
+    children: ReactNode
+};
 export default Creator;
