@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'nunito-sans': ['"Nunito Sans"', 'sans-serif'],
+        'nunito-sans-italic': ['"Nunito Sans Italic"', 'sans-serif'],
+      },
+    },
   },
   plugins: [
     function ({ addUtilities }) {
@@ -15,6 +20,7 @@ export default {
           '-webkit-text-stroke': '1px #111827',
           '-webkit-text-fill-color': 'white',
         },
+        
       };
       addUtilities(newUtilities, ['responsive', 'hover']);
     },

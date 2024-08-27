@@ -7,6 +7,7 @@ interface FormInputIn {
   icon: string;
   placeholder: string | undefined;
   formMode: boolean;
+  onChange: any;
 }
 
 export interface NavigationInterfaceItem {
@@ -22,30 +23,7 @@ export interface NavbarProps {
   handleNavigation: (name: string) => void;
 }
 
-export const UploadFormInput = () => {
-  return (
-    <div className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
-      <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-        <Button className="w-full p-2 ">
-          <ImageIcon />
-        </Button>
-        <Input
-          type="file"
-          accept="image/*"
-          name="creators[]"
-          className=" w-11 absolute opacity-0 overflow-hidden h-11"
-        />
-      </div>
-      <Input
-        type="url"
-        placeholder="..or from the web!"
-        className="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-    </div>
-  );
-};
-
-export const FormInput = ({ icon, placeholder, formMode }: FormInputIn) => {
+export const FormInput = ({ icon, placeholder, formMode, onChange }: FormInputIn) => {
   return (
     <div className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
       <div className="mt-1 flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
@@ -55,6 +33,7 @@ export const FormInput = ({ icon, placeholder, formMode }: FormInputIn) => {
       <Input
       type="text"
       name="first-name"
+      onChange={onChange}
       placeholder={placeholder}
       id="first-name"
       className="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
