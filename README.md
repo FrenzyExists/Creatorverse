@@ -39,7 +39,7 @@ Here's a walkthrough of implemented required features:
 ![image](https://github.com/user-attachments/assets/cce44cc6-7f14-46b9-8ca1-df44ff3f68d1)
 
 
-👉🏿<img src='[http://i.imgur.com/link/to/your/gif/file.gif](https://www.loom.com/share/17ae1683f2434a0583f23abf7c77c48f?sid=27f1dc86-9811-4e9a-95b0-94db13a75cac)' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+👉🏿<img src='[[http://i.imgur.com/link/to/your/gif/file.gif](https://www.loom.com/share/55ef85e0cc284d609c1861957994d1d7?sid=21ed2f3d-7a04-4d94-beab-1bd44bfdd13c)]([https://www.loom.com/share/17ae1683f2434a0583f23abf7c77c48f?sid=27f1dc86-9811-4e9a-95b0-94db13a75cac](https://www.loom.com/share/55ef85e0cc284d609c1861957994d1d7?sid=21ed2f3d-7a04-4d94-beab-1bd44bfdd13c))' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...  👉🏿 Loom
