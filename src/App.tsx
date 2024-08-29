@@ -9,7 +9,7 @@ import { NavigationInterfaceItem } from "./components/GeneralModal";
 const App = () => {
   const [navigation, setNavigation] = useState<NavigationInterfaceItem[]>([
     { name: "Home", route: "/", current: true, leftSide: true },
-    {name: "All Creators", route: "/user/all", current:false, leftSide: true}
+    {name: "All Creators", route: "/all-creators", current:false, leftSide: true}
   ]);
 
   return (

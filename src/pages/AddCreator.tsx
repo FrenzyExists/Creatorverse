@@ -16,6 +16,7 @@ import YoutubeIcon from "../assets/youtube-brands-solid.svg";
 import React, { useEffect, useState } from "react";
 import { ImageIcon } from "../assets/image-solid";
 import { supabase } from "../client";
+import { useNavigate } from "react-router-dom";
 
 const AddCreator = () => {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
@@ -31,6 +32,8 @@ const AddCreator = () => {
   const [twitchUrl, setTwitchUrl] = useState<string | undefined>(undefined);
   // Handle local file uploads
   
+  const navigate = useNavigate();
+
   useEffect(() => {
     checkConnection();
   }, []);
@@ -65,6 +68,7 @@ const AddCreator = () => {
       console.error('Error adding creator:', error);
     } else {
       console.log('Creator added:', data);
+      navigate("/all-creators");
     }
   }
 
@@ -83,8 +87,28 @@ const AddCreator = () => {
   };
 
   return (
-    <div className="w-full h-full min-h-screen bg-[#94c7c1] ">
-      <div className="bg-gray-100 w-full max-w-6xl relative mx-auto p-6 border-x-8 border-[#739f9a] border-b-8 rounded-b-2xl py-10">
+    <div className="relative w-full h-full min-h-screen bg-[#0084C8] ">
+      <div className="absolute top-0 left-0 w-full h-auto -z-3">
+        <svg
+          className="w-full h-auto"
+          width="574"
+          height="93"
+          viewBox="0 0 574 93"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 61.0907L16.889 60.485C32.778 59.8785 64.556 58.6671 96.333 63.2123C128.111 67.7575 159.889 78.0608 191.667 79.273C223.444 80.4852 255.222 72.6063 287 69.879C318.778 67.1517 350.556 69.5761 382.333 68.9697C414.111 68.3639 445.889 64.7273 477.667 68.0603C509.444 71.3941 541.222 81.6967 557.111 86.8483L574 92"
+            stroke="#043A5F"
+            strokeWidth="2"
+          />
+          <path
+            d="M0 61.0907L16.889 60.485C32.778 59.8785 64.556 58.6671 96.333 63.2123C128.111 67.7575 159.889 78.0608 191.667 79.273C223.444 80.4852 255.222 72.6063 287 69.879C318.778 67.1517 350.556 69.5761 382.333 68.9697C414.111 68.3639 445.889 64.7273 477.667 68.0603C509.444 71.3941 541.222 81.6967 557.111 86.8483L574 92V0H0V61.0907Z"
+            fill="#005792"
+          />
+        </svg>
+      </div>
+      <div className="bg-gray-100 w-full max-w-6xl relative mx-auto px-8 border-[#043A5F] border-4 rounded-3xl pb-8 pt-6">
         <Fieldset className="">
           <Legend className="relative mb-10 text-pop-stroke text-7xl font-extrabold">
             Add a Creator
@@ -157,7 +181,7 @@ const AddCreator = () => {
                   <Textarea
                     placeholder="I am the one, don't weight a ton
 Don't need a gun to get respect on the street..."
-                    rows={5}
+                    rows={3}
                     onChange={(e) => setDescription(e.target.value)}
                     className="outline-2 px-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
                   />

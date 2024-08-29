@@ -10,7 +10,7 @@ import InstagramIcon from "../assets/instagram-brands-solid.svg";
 import IncognitoIcon from "../assets/user-secret-solid.svg";
 
 interface CardInformation {
-  id: Key;
+  id: Number;
   creator: Creator;
 }
 

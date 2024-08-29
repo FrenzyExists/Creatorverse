@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
 
-type Creator = {
+export type Creator = {
+    id: Number,
     name: String,
     url: string,
     description: String,
     imageURL: string|undefined
     socialMedia: SocialMedia|undefined
 };
-type SocialMedia = {
-    id: Number,
+export type SocialMedia = {
     tiktok: string|undefined,
     youtube: string|undefined,
     instagram: string|undefined,
@@ -21,4 +21,3 @@ export interface Modal {
     propeties: {}|undefined,
     children: ReactNode
 };
-export default Creator;
