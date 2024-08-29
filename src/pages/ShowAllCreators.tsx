@@ -1,21 +1,11 @@
 import CardGroup, { CardGroupInterface } from "../components/CreatorCardGroup";
 import { supabase } from "../client";
 import { useEffect, useState, useTransition } from "react";
-import { Creator, SocialMedia } from "../types";
+import { Creator } from "../types";
 import Card from "../components/CreatorCard";
+import { rawCreatorDataToCreatorType } from "../util";
 
 const ShowAllCreators = () => {
-  interface rawCreatorData {
-    id: number;
-    name: string;
-    url: string;
-    image_url?: string;
-    tiktok_url?: string;
-    youtube_url?: string;
-    instagram_url?: string;
-    twitch_url?: string;
-    twitter_x_url?: string;
-  }
 
   const [creators, setCreators] = useState<Creator[]>([]);
   const [connection, setConnection] = useState<boolean>(false);
@@ -32,34 +22,7 @@ const ShowAllCreators = () => {
     }
   });
 
-  const rawCreatorDataToCreatorType = (data: rawCreatorData[]): Creator[] => {
-    return data.map((i) => {
-      const socialMedia: SocialMedia | undefined =
-        i.tiktok_url ||
-        i.youtube_url ||
-        i.instagram_url ||
-        i.twitch_url ||
-        i.twitter_x_url
-          ? {
-              tiktok: i.tiktok_url,
-              youtube: i.youtube_url,
-              instagram: i.instagram_url,
-              twitch: i.twitch_url,
-              twitter: i.twitter_x_url,
-            }
-          : undefined;
 
-      const creator: Creator = {
-        name: i.name,
-        description: "",
-        imageURL: i.image_url,
-        socialMedia: socialMedia,
-        url: "",
-        id: i.id,
-      };
-      return creator;
-    });
-  };
   const checkConnection = async () => {
     const { data, error } = await supabase
       .from("creators")
@@ -116,8 +79,8 @@ const ShowAllCreators = () => {
           <p>Loading...</p>
         ) : (
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-28 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-5">
-            {creators.map((creator) => (
-              <Card id={creator.id} creator={creator} />
+            {creators.map((creator, index) => (
+              <Card key={index} id={creator.id} creator={creator} />
             ))}
           </div>
         )}

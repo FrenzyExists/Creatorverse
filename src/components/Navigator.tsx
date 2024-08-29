@@ -1,13 +1,15 @@
-import React from "react";
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { NavbarProps } from "./GeneralModal";
-
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+import { NavbarProps } from "../util";
 
 const classNames = (...classes: string[]) => {
-  return classes.filter(Boolean).join(' ')
-}
+  return classes.filter(Boolean).join(" ");
+};
 
-const Navbar = ({nav, handleNavigation}: NavbarProps) => {
+const Navbar = ({ nav, handleNavigation }: NavbarProps) => {
   return (
     <Disclosure as="nav" className="bg-[#005792]">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -21,8 +23,16 @@ const Navbar = ({nav, handleNavigation}: NavbarProps) => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="fill-[#00bfa6] h-8 w-auto" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
-            <span className="ml-4 text-3xl text-gray-100 font-bold tracking-tight">Creatorverse</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-[#00bfa6] h-8 w-auto"
+                viewBox="0 0 448 512"
+              >
+                <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z" />
+              </svg>
+              <span className="ml-4 text-3xl text-gray-100 font-bold tracking-tight">
+                Creatorverse
+              </span>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -30,10 +40,12 @@ const Navbar = ({nav, handleNavigation}: NavbarProps) => {
                   <a
                     key={index}
                     href={item.route}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.current ? "page" : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "rounded-md px-3 py-2 text-sm font-medium"
                     )}
                     onClick={() => handleNavigation(item.name)}
                   >
@@ -53,10 +65,12 @@ const Navbar = ({nav, handleNavigation}: NavbarProps) => {
               key={index}
               as="a"
               href={item.route}
-              aria-current={item.current ? 'page' : undefined}
+              aria-current={item.current ? "page" : undefined}
               className={classNames(
-                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium',
+                item.current
+                  ? "bg-gray-900 text-white"
+                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                "block rounded-md px-3 py-2 text-base font-medium"
               )}
               onClick={() => handleNavigation(item.name)}
             >
@@ -66,7 +80,7 @@ const Navbar = ({nav, handleNavigation}: NavbarProps) => {
         </div>
       </DisclosurePanel>
     </Disclosure>
-  )
-}
+  );
+};
 
 export default Navbar;

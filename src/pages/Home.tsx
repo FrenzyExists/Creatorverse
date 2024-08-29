@@ -1,107 +1,60 @@
 import { Button } from "@headlessui/react";
-import CardGroup, { CardGroupInterface } from "../components/CreatorCardGroup";
 import Hero from "../components/Hero";
 import { Link } from "react-router-dom";
+import { supabase } from "../client";
+import { useEffect, useState } from "react";
+import { Creator } from "../types";
+import { rawCreatorDataToCreatorType } from "../util";
+import Card from "../components/CreatorCard";
 
 const Home = () => {
-  const testData: CardGroupInterface = {
-    cards: [
-      {
-        id: "1",
-        creator: {
-          name: "John Doe",
-          url: "https://www.tiktok.com/@johndoe",
-          description: "Popular TikTok content creator",
-          imageURL:
-            "https://xcancel.com/pic/media%2FGN9e5XOa4AAaf9L.jpg%3Fname%3Dsmall%26format%3Dwebp",
-          socialMedia: {
-            id: 1,
-            tiktok: "https://www.tiktok.com/@johndoe",
-            instagram: "https://www.instagram.com/johndoe",
-            twitter: "https://www.twitter.com/johndoe",
-            twitch: undefined,
-            youtube: undefined,
-          },
-        },
-      },
-      {
-        id: "2",
-        creator: {
-          name: "Jane Smith",
-          url: "https://www.tiktok.com/@janesmith",
-          description: "Creative influencer and video editor",
-          imageURL:
-            "https://xcancel.com/pic/media%2FF7wbHy2agAAZIgc.jpg%3Fname%3Dsmall%26format%3Dwebp",
-          socialMedia: {
-            id: 2,
-            tiktok: "https://www.tiktok.com/@janesmith",
-            youtube: "https://www.youtube.com/janesmith",
-            instagram: undefined,
-            twitch: undefined,
-            twitter: undefined,
-          },
-        },
-      },
-      {
-        id: "3",
-        creator: {
-          name: "Alex Johnson",
-          url: "https://www.tiktok.com/@alexjohnson",
-          description: "Travel vlogger with a passion for adventure",
-          imageURL:
-            "https://xcancel.com/pic/media%2FGTXnTj4bwAALz1J.jpg%3Fname%3Dsmall%26format%3Dwebp",
-          socialMedia: {
-            id: 3,
-            instagram: "https://www.instagram.com/alexjohnson",
-            twitter: "https://www.twitter.com/alexjohnson",
-            twitch: undefined,
-            tiktok: undefined,
-            youtube: undefined,
-          },
-        },
-      },
-      {
-        id: "4",
-        creator: {
-          name: "Slutty Tina",
-          url: "https://www.tiktok.com/@alexjohnson",
-          description: "Travel vlogger with a passion for adventure",
-          imageURL:
-            "https://xcancel.com/pic/media%2FF5wi_ljaIAI04Lc.jpg%3Fname%3Dsmall%26format%3Dwebp",
-          socialMedia: {
-            id: 3,
-            instagram: "https://www.instagram.com/alexjohnson",
-            twitter: "https://www.twitter.com/alexjohnson",
-            twitch: undefined,
-            tiktok: undefined,
-            youtube: undefined,
-          },
-        },
-      },
-      {
-        id: "5",
-        creator: {
-          name: "Sexy Nina",
-          url: "https://www.tiktok.com/@alexjohnson",
-          description: "Travel vlogger with a passion for adventure",
-          imageURL:
-            "https://xcancel.com/pic/media%2FF6z13TcbQAAY6vM.jpg%3Fname%3Dsmall%26format%3Dwebp",
-          socialMedia: {
-            id: 3,
-            instagram: "https://www.instagram.com/alexjohnson",
-            twitter: "https://www.twitter.com/alexjohnson",
-            twitch: undefined,
-            tiktok: undefined,
-            youtube: undefined,
-          },
-        },
-      },
-    ],
+  const [creators, setCreators] = useState<Creator[]>([]);
+  const [connection, setConnection] = useState<boolean>(true);
+
+  const checkConnection = async () => {
+    const { data, error } = await supabase
+      .from("creators")
+      .select("*")
+      .limit(1);
+    if (error) {
+      console.error("Error connecting to Supabase:", error);
+    } else {
+      console.log("Successfully connected to Supabase");
+      setConnection(true);
+    }
   };
+
+  const handleGetFirstFive = async () => {
+    const { data, error } = await supabase
+      .from("creators")
+      .select(
+        "id, name, image_url, tiktok_url, youtube_url, instagram_url, youtube_url, twitch_url, twitter_x_url"
+      )
+      .limit(5);
+    if (error) {
+      console.error("Error obtainting creators: ", error);
+    } else {
+      console.log("Creators obtained succesfully ", data);
+      const formattedData = rawCreatorDataToCreatorType(data);
+      setCreators(formattedData);
+      console.log(creators);
+    }
+  };
+
+  useEffect(() => {
+    checkConnection();
+  }, []);
+
+  useEffect(() => {
+    if (connection) {
+      handleGetFirstFive();
+      setConnection(false);
+    }
+  }, []);
+
   return (
     <>
       <Hero />
-      {/* SVG art goes here */}
       <div className="w-full h-auto z-0">
         <svg
           width="574"
@@ -142,7 +95,11 @@ const Home = () => {
           </h2>
         </div>
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl xl:max-w-full xl:px-10 lg:px-8">
-          <CardGroup cards={testData.cards} />
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-28 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-5">
+            {creators.map((creator, index) => (
+                <Card key={index} id={creator.id} creator={creator} />
+            ))}
+          </div>
         </div>
       </div>
     </>

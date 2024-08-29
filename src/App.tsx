@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-import { NavigationInterfaceItem } from "./components/GeneralModal";
+import { NavigationInterfaceItem } from "./util";
+
 
 const App = () => {
   const [navigation, setNavigation] = useState<NavigationInterfaceItem[]>([
