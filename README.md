@@ -32,24 +32,21 @@ The following **additional** features are implemented:
 * [x] Used tailwind css instead of PicoCSS
   - I had a hard time using PicoCSS, I just get the point of it. If anything it messes things up.
 
-Note: One thing I did struggle was finding a clean methodology in writting clean React code. At the time of writtng this I am looking a mountain of code I have to clean, optimize and possibly write more additional tests on. The functionality itself is the easy part, its how components and css styling the part that I find more difficult, simply because css its a pain to work with. I would say that around 90% of the time I spent on this project was on tailwind and css styling alone. The api was easy, the async was easy, its the UI/UX that was tedious.
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented required features:
 
-👉🏿<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![image](https://github.com/user-attachments/assets/cce44cc6-7f14-46b9-8ca1-df44ff3f68d1)
+
+
+👉🏿<img src='[http://i.imgur.com/link/to/your/gif/file.gif](https://www.loom.com/share/17ae1683f2434a0583f23abf7c77c48f?sid=27f1dc86-9811-4e9a-95b0-94db13a75cac)' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  👉🏿 GIF tool here
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
+GIF created with ...  👉🏿 Loom
 
 ## Notes
 
-Describe any challenges encountered while building the app or any additional context you'd like to add.
+One thing I did struggle was finding a clean methodology in writting clean React code. At the time of writtng this I am looking a mountain of code I have to clean, optimize and possibly write more additional tests on. The functionality itself is the easy part, its how components and css styling the part that I find more difficult, simply because css its a pain to work with. I would say that around 90% of the time I spent on this project was on tailwind and css styling alone. The api was easy, the async was easy, its the UI/UX that was tedious.
 
 ## License
 
