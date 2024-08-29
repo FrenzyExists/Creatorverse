@@ -8,7 +8,6 @@ import {
   Input,
   Label,
   Legend,
-  Textarea,
 } from "@headlessui/react";
 import TikTokIcon from "../assets/tiktok-brands-solid.svg";
 import InstagramIcon from "../assets/instagram-brands-solid.svg";
@@ -17,18 +16,12 @@ import XTwitterIcon from "../assets/x-twitter-brands-solid.svg";
 import YoutubeIcon from "../assets/youtube-brands-solid.svg";
 import { ImageIcon } from "../assets/image-solid";
 import { supabase } from "../client";
+import MagicInput from "../components/MagicInput";
+import MagicInputWithIcon from "../components/MagicInputWithIcon";
+import MagicButton from "../components/MagicButton";
+import { rawCreatorData } from "../util";
 
-interface rawCreatorData {
-  id: number;
-  name: string;
-  description: string;
-  image_url?: string;
-  tiktok_url?: string;
-  youtube_url?: string;
-  instagram_url?: string;
-  twitch_url?: string;
-  twitter_x_url?: string;
-}
+
 
 const ViewCreator = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,7 +29,6 @@ const ViewCreator = () => {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
   const [name, setName] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
-  const [url, setUrl] = useState<string | undefined>(undefined);
   const [tiktokUrl, setTiktokUrl] = useState<string | undefined>(undefined);
   const [xTwitterUrl, setXTwitterUrl] = useState<string | undefined>(undefined);
   const [instagramUrl, setInstagramUrl] = useState<string | undefined>(
@@ -48,35 +40,6 @@ const ViewCreator = () => {
   const [originalData, setOriginalData] = useState<rawCreatorData | null>(null);
 
   const navigate = useNavigate();
-
-  const rawCreatorDataToCreatorType = (data: rawCreatorData[]): Creator[] => {
-    return data.map((i) => {
-      const socialMedia: SocialMedia | undefined =
-        i.tiktok_url ||
-        i.youtube_url ||
-        i.instagram_url ||
-        i.twitch_url ||
-        i.twitter_x_url
-          ? {
-              id: i.id,
-              tiktok: i.tiktok_url,
-              youtube: i.youtube_url,
-              instagram: i.instagram_url,
-              twitch: i.twitch_url,
-              twitter: i.twitter_x_url,
-            }
-          : undefined;
-
-      const creator: Creator = {
-        name: i.name,
-        description: i.description,
-        imageURL: i.image_url,
-        socialMedia: socialMedia,
-        url: ""
-      };
-      return creator;
-    });
-  };
 
   const toggleEditMode = () => {
     setEditMode((prevEditMode) => !prevEditMode);
@@ -253,157 +216,24 @@ const ViewCreator = () => {
             <div className="col-span-2">
               <Field className="mb-6">
                 <Label className="font-bold text-gray-900 text-2xl">Name</Label>
-                <div className="relative flex items-center rounded-lg group mt-4">
-                  {editMode ? (
-                    <Input
-                      type="text"
-                      value={name || undefined}
-                      placeholder="John Doe"
-                      onChange={(e) => setName(e.target.value)}
-                      className="outline-2 pr-2 leading-5 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-2 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                  ) : (
-                    <div className="flex-grow flex items-center h-full py-3 leading-5 pl-2 outline-none rounded-lg outline-2 pr-2 outline-gray-300 placeholder:italic text-gray-800">
-                      {name || "Unknown"}
-                    </div>
-                  )}
-                </div>
+                <MagicInput editMode={editMode} value={name} changeFun={(e) => setName(e.target.value)} notFoundMsg="Unknown" placeholder="John Doe"/>
               </Field>
               <Field className="mb-6">
                 <Label className="font-bold text-gray-900 text-2xl">
                   About Me
                 </Label>
-                <div className="flex-grow outline-gray-300 outline-none outline-2 relative flex items-center rounded-lg group mt-4">
-                  {editMode ? (
-                    <Textarea
-                      placeholder="I am the one, don't weight a ton
-Don't need a gun to get respect on the street..."
-                      value={description || undefined}
-                      rows={1}
-                      onChange={(e) => setDescription(e.target.value)}
-                      className="outline-2 px-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                  ) : (
-                    <p className="px-2 flex-grow text-gray-800 h-full py-3 outline-none">
-                      {description}
-                    </p>
-                  )}
-                </div>
+              <MagicInput isTextArea={true} changeFun={(e) => setDescription(e.target.value)} editMode={editMode} value={description} notFoundMsg="Data Not Found" placeholder="I am the one, don't weight a ton. Don't need a gun to get respect on the street..."/>
               </Field>
               <Field className="mb-6">
                 <Legend className="font-bold text-gray-900 text-2xl mb-2">
                   My Social Media
                 </Legend>
                 <div className="space-y-8">
-                  <div className="relative flex items-center rounded-lg group">
-                    {editMode ? (
-                      <Input
-                        type="url"
-                        placeholder="TikTok"
-                        value={tiktokUrl || undefined}
-                        onChange={(e) => setTiktokUrl(e.target.value)}
-                        className="outline-2 pr-2 leading-5 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                      />
-                    ) : (
-                      <div className="flex-grow flex items-center h-full py-3 leading-5 pl-14 outline-none rounded-lg outline-2 pr-2 outline-gray-300 placeholder:italic text-gray-800">
-                        {tiktokUrl || "Data Not Found"}
-                      </div>
-                    )}
-                    <div className="absolute left-0 w-12">
-                      <img
-                        src={TikTokIcon || undefined}
-                        className="w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    {editMode ? (
-                      <Input
-                        type="url"
-                        value={instagramUrl || undefined}
-                        placeholder="Instagram"
-                        onChange={(e) => setInstagramUrl(e.target.value)}
-                        className="outline-2 pr-2 leading-5 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                      />
-                    ) : (
-                      <div className="flex-grow flex items-center h-full py-3 leading-5 pl-14 outline-none rounded-lg outline-2 pr-2 outline-gray-300 placeholder:italic text-gray-800">
-                        {instagramUrl || "Data Not Found"}
-                      </div>
-                    )}
-                    <div className="absolute left-0 w-12">
-                      <img
-                        src={InstagramIcon}
-                        className="w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    {editMode ? (
-                      <Input
-                        type="url"
-                        placeholder="Youtube"
-                        value={youTubeUrl || undefined}
-                        onChange={(e) => setYouTubeUrl(e.target.value)}
-                        className="outline-2 pr-2 leading-5 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                      />
-                    ) : (
-                      <div className="flex-grow flex items-center h-full py-3 leading-5 pl-14 outline-none rounded-lg outline-2 pr-2 outline-gray-300 placeholder:italic text-gray-800">
-                        {youTubeUrl || "Data Not Found"}
-                      </div>
-                    )}
-                    <div className="absolute left-0 w-12">
-                      <img
-                        src={YoutubeIcon}
-                        className="w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    {editMode ? (
-                      <Input
-                        type="url"
-                        placeholder="Twitter X"
-                        value={xTwitterUrl}
-                        onChange={(e) => setXTwitterUrl(e.target.value)}
-                        className="outline-2 pr-2 leading-5 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                      />
-                    ) : (
-                      <div className="flex-grow flex items-center h-full py-3 leading-5 pl-14 outline-none rounded-lg outline-2 pr-2 outline-gray-300 placeholder:italic text-gray-800">
-                        {xTwitterUrl || "Data Not Found"}
-                      </div>
-                    )}
-                    <div className="absolute left-0 w-12">
-                      <img
-                        src={XTwitterIcon}
-                        className="w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    {editMode ? (
-                      <Input
-                        type="url"
-                        placeholder="Twitch"
-                        value={twitchUrl || undefined}
-                        onChange={(e) => setTwitchUrl(e.target.value)}
-                        className="outline-2 pr-2 leading-5 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                      />
-                    ) : (
-                      <div className="flex-grow flex items-center h-full py-3 leading-5 pl-14 outline-none rounded-lg outline-2 pr-2 outline-gray-300 placeholder:italic text-gray-800">
-                        {twitchUrl || "Data Not Found"}
-                      </div>
-                    )}
-                    <div className="absolute left-0 w-12">
-                      <img
-                        src={TwitchIcon}
-                        className="w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setTiktokUrl(e.target.value)} editMode={editMode} value={tiktokUrl} placeholder="TikTok" iconSrc={TikTokIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setInstagramUrl(e.target.value)} editMode={editMode} value={instagramUrl} placeholder="Instagram" iconSrc={InstagramIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setYouTubeUrl(e.target.value)} editMode={editMode} value={youTubeUrl} placeholder="YouTube" iconSrc={YoutubeIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setXTwitterUrl(e.target.value)} editMode={editMode} value={xTwitterUrl} placeholder="Twitter X" iconSrc={XTwitterIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setTwitchUrl(e.target.value)} editMode={editMode} value={twitchUrl} placeholder="Twitch" iconSrc={TwitchIcon}/>
                 </div>
               </Field>
             </div>
@@ -412,17 +242,8 @@ Don't need a gun to get respect on the street..."
             {editMode ? (
               <div>
                 <div className="mx-auto grid grid-cols-2 relative">
-                  <Button 
-                  onClick={handleUpdateCreator}
-                  className="text-xl font-bold flex items-center justify-center gap-x-2.5 p-3 text-blue-900 border-[3px] border-blue-900 hover:bg-blue-900 hover:text-gray-100 rounded-lg mr-2 py-5">
-                    Save Creator
-                  </Button>
-                  <Button
-                    className="text-xl font-bold border-[3px] border-red-900 text-red-900 px-10 flex items-center justify-center gap-x-2.5 p-3 hover:bg-red-900 hover:text-gray-100 rounded-lg ml-2 py-5"
-                    onClick={handleCancelEdit}
-                  >
-                    Cancel
-                  </Button>
+                  <MagicButton onClickFun={handleUpdateCreator} buttonName="Save Creator" color="blue-900" bg="gray-100"/>
+                  <MagicButton onClickFun={handleCancelEdit} buttonName="Cancel" color="red-900" bg="gray-100"/>
                 </div>
                 <div className="mx-auto grid grid-cols-1 relative">
                   <Button 
@@ -434,17 +255,8 @@ Don't need a gun to get respect on the street..."
               </div>
             ) : (
               <div className="mx-auto grid grid-cols-2 relative">
-                <Button
-                  className="text-xl font-bold border-[3px] border-blue-900 text-blue-900 flex items-center justify-center gap-x-2.5 p-3 hover:bg-blue-900 hover:text-gray-100 rounded-lg mr-2 py-5"
-                  onClick={toggleEditMode}
-                >
-                  Edit Creator
-                </Button>
-                <Button 
-                onClick={handleCancelView}
-                className="text-xl font-bold border-[3px] border-red-900 text-red-900 px-10 flex items-center justify-center gap-x-2.5 p-3 hover:bg-red-900 hover:text-gray-100 rounded-lg ml-2 py-5">
-                  Cancel
-                </Button>
+                <MagicButton onClickFun={toggleEditMode} buttonName="Edit Creator" color="blue-900" bg="gray-100"/>
+                <MagicButton onClickFun={handleCancelView} buttonName="Cancel" color="red-900" bg="gray-100"/>
               </div>
             )}
           </Field>

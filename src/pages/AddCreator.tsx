@@ -17,6 +17,9 @@ import React, { useEffect, useState } from "react";
 import { ImageIcon } from "../assets/image-solid";
 import { supabase } from "../client";
 import { useNavigate } from "react-router-dom";
+import MagicButton from "../components/MagicButton";
+import MagicInputWithIcon from "../components/MagicInputWithIcon";
+import MagicInput from "../components/MagicInput";
 
 const AddCreator = () => {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
@@ -70,6 +73,10 @@ const AddCreator = () => {
       console.log('Creator added:', data);
       navigate("/all-creators");
     }
+  }
+
+  const handleCancelView = async () => {
+    navigate("/all-creators")
   }
 
   const checkConnection = async () => {
@@ -164,123 +171,33 @@ const AddCreator = () => {
             <div className="col-span-2">
               <Field className="mb-6">
                 <Label className="font-bold text-gray-900 text-2xl">Name</Label>
-                <div className="relative flex items-center rounded-lg group mt-4">
-                  <Input
-                    type="text"
-                    placeholder="John Smith"
-                    onChange={(e) => setName(e.target.value)}
-                    className="outline-2 px-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                  />
-                </div>
+                <MagicInput editMode={true} value={name} changeFun={(e) => setName(e.target.value)} notFoundMsg="Unknown" placeholder="John Doe"/>
               </Field>
               <Field className="mb-6">
                 <Label className="font-bold text-gray-900 text-2xl">
                   About Me
                 </Label>
-                <div className="relative flex items-center rounded-lg group mt-4">
-                  <Textarea
-                    placeholder="I am the one, don't weight a ton
-Don't need a gun to get respect on the street..."
-                    rows={3}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="outline-2 px-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                  />
-                </div>
+                <MagicInput isTextArea={true} changeFun={(e) => setDescription(e.target.value)} editMode={true} value={description} notFoundMsg="Data Not Found" placeholder="I am the one, don't weight a ton. Don't need a gun to get respect on the street..."/>
               </Field>
               <Field className="mb-6">
                 <Legend className="font-bold text-gray-900 text-2xl mb-2">
                   My Social Media
                 </Legend>
                 <div className="space-y-8">
-                  <div className="relative flex items-center rounded-lg group mt-4">
-                    <Input
-                      type="url"
-                      placeholder="TikTok"
-                      onChange={(e) => setTiktokUrl(e.target.value)}
-                      className="outline-2 pr-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                    <div className="absolute left-0 w-12 ">
-                      <img
-                        src={TikTokIcon}
-                        className=" w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    <Input
-                      type="url"
-                      placeholder="Instagram"
-                      onChange={(e) => setInstagramUrl(e.target.value)}
-                      className="outline-2 pr-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                    <div className="absolute left-0 w-12 ">
-                      <img
-                        src={InstagramIcon}
-                        className=" w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    <Input
-                      type="url"
-                      placeholder="YouTube"
-                      onChange={(e) => setYouTubeUrl(e.target.value)}
-                      className="outline-2 pr-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                    <div className="absolute left-0 w-12 ">
-                      <img
-                        src={YoutubeIcon}
-                        className=" w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    <Input
-                      type="url"
-                      placeholder="Twitter X"
-                      onChange={(e) => setXTwitterUrl(e.target.value)}
-                      className="outline-2 pr-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                    <div className="absolute left-0 w-12 ">
-                      <img
-                        src={XTwitterIcon}
-                        className=" w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative flex items-center rounded-lg group">
-                    <Input
-                      type="url"
-                      placeholder="Twitch"
-                      onChange={(e) => setTwitchUrl(e.target.value)}
-                      className="outline-2 pr-2 outline-gray-300 flex-grow placeholder:italic text-gray-800 h-full py-3 pl-14 outline-none focus:outline focus:outline-[#94c7c1] rounded-lg focus:outline-2 focus:outline-offset-2"
-                    />
-                    <div className="absolute left-0 w-12 ">
-                      <img
-                        src={TwitchIcon}
-                        className=" w-full h-full px-4 py-3 font-extrabold bg-gray-200 text-gray-900 rounded-none rounded-l-lg border-l-0 shadow-sm"
-                      />
-                    </div>
-                  </div>
+                <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setTiktokUrl(e.target.value)} editMode={true} value={tiktokUrl} placeholder="TikTok" iconSrc={TikTokIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setInstagramUrl(e.target.value)} editMode={true} value={instagramUrl} placeholder="Instagram" iconSrc={InstagramIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setYouTubeUrl(e.target.value)} editMode={true} value={youTubeUrl} placeholder="YouTube" iconSrc={YoutubeIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setXTwitterUrl(e.target.value)} editMode={true} value={xTwitterUrl} placeholder="Twitter X" iconSrc={XTwitterIcon}/>
+                  <MagicInputWithIcon notFoundMsg="No Data Found" onChangeFun={(e) => setTwitchUrl(e.target.value)} editMode={true} value={twitchUrl} placeholder="Twitch" iconSrc={TwitchIcon}/>
                 </div>
               </Field>
             </div>
           </div>
           <Field>
-            <div className="mx-auto grid grid-cols-2 relative">
-              <Button 
-              onClick={handleAddCreator}
-              className="text-xl font-bold border-[3px] border-blue-900 text-blue-900 flex items-center justify-center gap-x-2.5 p-3 hover:bg-blue-900 hover:text-gray-100 rounded-lg mr-2 py-5">
-                Add Creator
-              </Button>
-              <Button className="text-xl font-bold border-[3px] border-red-900 text-red-900 px-10 flex items-center justify-center gap-x-2.5 p-3 hover:bg-red-900 hover:text-gray-100 rounded-lg ml-2 py-5">
-                Cancel
-              </Button>
-            </div>
+          <div className="mx-auto grid grid-cols-2 relative">
+                <MagicButton onClickFun={handleAddCreator} buttonName="Add Creator" color="blue-900" bg="gray-100"/>
+                <MagicButton onClickFun={handleCancelView} buttonName="Cancel" color="red-900" bg="gray-100"/>
+              </div>
           </Field>
         </Fieldset>
       </div>
