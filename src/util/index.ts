@@ -1,4 +1,3 @@
-import { CardGroupInterface } from "../components/CreatorCardGroup";
 import { Creator, SocialMedia } from "../types";
 
 export interface rawCreatorData {
