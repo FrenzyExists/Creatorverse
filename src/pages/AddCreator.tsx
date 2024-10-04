@@ -1,7 +1,6 @@
 import {
   Field,
   Fieldset,
-  Textarea,
   Input,
   Label,
   Legend,
@@ -25,7 +24,6 @@ const AddCreator = () => {
   const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
   const [name, setName] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
-  const [url, setUrl] = useState<string | undefined>(undefined);
   const [tiktokUrl, setTiktokUrl] = useState<string | undefined>(undefined);
   const [xTwitterUrl, setXTwitterUrl] = useState<string | undefined>(undefined);
   const [instagramUrl, setInstagramUrl] = useState<string | undefined>(
@@ -57,7 +55,6 @@ const AddCreator = () => {
     const { data, error } = await supabase.from('creators').insert([
       {
         name: name,
-        url: url,
         description: description,
         image_url: imageSrc,
         tiktok_url: tiktokUrl,

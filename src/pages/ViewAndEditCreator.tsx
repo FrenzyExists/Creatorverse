@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import {Creator, SocialMedia } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
@@ -26,7 +25,7 @@ import { rawCreatorData } from "../util";
 const ViewCreator = () => {
   const { id } = useParams<{ id: string }>();
   const [editMode, setEditMode] = useState(false);
-  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
+  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null | undefined>(null);
   const [name, setName] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
   const [tiktokUrl, setTiktokUrl] = useState<string | undefined>(undefined);
@@ -131,6 +130,8 @@ const ViewCreator = () => {
       console.error("Error updating creator id:", error);
     } else {
       console.log("Creator updated:", data);
+      navigate(`/creator/${id}`, {replace: true})
+      window.location.reload();
     }
   };
 
@@ -256,7 +257,7 @@ const ViewCreator = () => {
             ) : (
               <div className="mx-auto grid grid-cols-2 relative">
                 <MagicButton onClickFun={toggleEditMode} buttonName="Edit Creator" color="blue-900" bg="gray-100"/>
-                <MagicButton onClickFun={handleCancelView} buttonName="Cancel" color="red-900" bg="gray-100"/>
+                <MagicButton onClickFun={handleCancelView} buttonName="Go Back " color="red-900" bg="gray-100"/>
               </div>
             )}
           </Field>

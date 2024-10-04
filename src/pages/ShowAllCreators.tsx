@@ -1,6 +1,5 @@
-import CardGroup, { CardGroupInterface } from "../components/CreatorCardGroup";
 import { supabase } from "../client";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { Creator } from "../types";
 import Card from "../components/CreatorCard";
 import { rawCreatorDataToCreatorType } from "../util";
@@ -24,7 +23,7 @@ const ShowAllCreators = () => {
 
 
   const checkConnection = async () => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("creators")
       .select("*")
       .limit(1);

@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export type Creator = {
     id: Number,
-    name: String,
+    name: string,
     url: string,
     description: String,
     imageURL: string|undefined

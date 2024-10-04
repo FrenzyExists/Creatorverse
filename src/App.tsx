@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "./components/Navigator";
 import {
   BrowserRouter as Router,
@@ -8,7 +8,7 @@ import { NavigationInterfaceItem } from "./util";
 
 
 const App = () => {
-  const [navigation, setNavigation] = useState<NavigationInterfaceItem[]>([
+  const [navigation] = useState<NavigationInterfaceItem[]>([
     { name: "Home", route: "/", current: true, leftSide: true },
     {name: "All Creators", route: "/all-creators", current:false, leftSide: true}
   ]);
@@ -18,7 +18,7 @@ const App = () => {
       <Navbar
         nav={navigation}
         handleNavigation={function (name: string): void {
-          throw new Error("Function not implemented.");
+          throw new Error(`Function ${name} not implemented.`);
         }}
       />
       <AppRoutes />

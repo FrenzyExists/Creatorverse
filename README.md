@@ -48,6 +48,9 @@ GIF created with ...  👉🏿 Loom
 
 One thing I did struggle was finding a clean methodology in writting clean React code. At the time of writtng this I am looking a mountain of code I have to clean, optimize and possibly write more additional tests on. The functionality itself is the easy part, its how components and css styling the part that I find more difficult, simply because css its a pain to work with. I would say that around 90% of the time I spent on this project was on tailwind and css styling alone. The api was easy, the async was easy, its the UI/UX that was tedious.
 
+### Bonus Stuff I could do afterwards
+- Searchbar: This is something that would work well for the all creators page
+
 ## License
 
 Copyright 2024 Detective Pikachu

@@ -1,10 +1,9 @@
-import { Key } from "react";
-import Creator from "../types";
+import {Creator} from "../types";
 import Card from "./CreatorCard";
 
 export interface CardGroupInterface {
   cards: {
-    id: Key,
+    id: Number,
     creator: Creator
   }[];
 }

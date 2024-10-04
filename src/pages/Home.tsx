@@ -12,7 +12,7 @@ const Home = () => {
   const [connection, setConnection] = useState<boolean>(true);
 
   const checkConnection = async () => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("creators")
       .select("*")
       .limit(1);
